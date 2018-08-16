@@ -1,18 +1,22 @@
 package com.haulmont.testtask.model.dao;
 
+import org.hsqldb.jdbc.JDBCDataSource;
+
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 public class HsqldbConnection {
-    private Connection connection;
-    final static private String CLASS_NAME = "org.hsqldb.jdbcDriver";
     final static private String URL = "jdbc:hsqldb:file:data/db";
     final static private String ADD_URL_IF_EXIST = ";ifexists=true";
-    final static private String ADD_URL_SHUTDOWN = ";shutdown=true";
     final static private String USER = "SA";
     final static private String PASSWORD = "";
+    final static private String DB_NAME = "db";
+
+    private JDBCDataSource dataSource;
+    private Connection connection;
 
     private static HsqldbConnection instance;
 
@@ -29,8 +33,12 @@ public class HsqldbConnection {
 
     private void init() {
         try {
-            Class.forName(CLASS_NAME);
-            connection = DriverManager.getConnection(URL + ADD_URL_IF_EXIST, USER, PASSWORD);
+            dataSource = new JDBCDataSource();
+            dataSource.setUser(USER);
+            dataSource.setPassword(PASSWORD);
+            dataSource.setURL(URL + ADD_URL_IF_EXIST);
+            dataSource.setDatabaseName(DB_NAME);
+            connection = dataSource.getConnection();
             this.createTables(connection);
             this.insertTables(connection);
         } catch (Exception e) {
@@ -81,17 +89,7 @@ public class HsqldbConnection {
         statement.executeUpdate("INSERT INTO patients_tbl (name, lastname, patronymic, phone_number) VALUES ('Alex3', 'Moss3', 'alexeivich3', '4');");
     }
 
-    private void closeConnection() {
-        try {
-            connection = DriverManager.getConnection(URL + ADD_URL_SHUTDOWN, USER, PASSWORD);
-        } catch (Exception e) {
-            System.err.println("ERROR: failed to close HSQLDB JDBC driver.");
-            e.printStackTrace();
-            return;
-        }
-    }
-
-    public Connection getConnection(){
+    public Connection getConnection() {
         return connection;
     }
 
