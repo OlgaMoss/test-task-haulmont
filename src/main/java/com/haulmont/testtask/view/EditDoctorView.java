@@ -41,19 +41,19 @@ class EditDoctorView extends Window {
         FormLayout formLayout = new FormLayout();
         formLayout.setSpacing(true);
 
-        nameTField = new TextField("Имя");
-        nameTField.setRequired(true);
-        nameTField.setSizeFull();
-        nameTField.setRequiredError("Поле пустое");
-        nameTField.addValidator(new StringLengthValidator("Имя должно быть от 3 до 50 символов", 3, 50, false));
-        formLayout.addComponent(nameTField);
-
         lastNameTField = new TextField("Фамилия");
         lastNameTField.setRequired(true);
         lastNameTField.setRequiredError("Поле пустое");
         lastNameTField.addValidator(new StringLengthValidator("Фамилия должно быть от 3 до 50 символов", 3, 50, false));
         lastNameTField.setSizeFull();
         formLayout.addComponent(lastNameTField);
+
+        nameTField = new TextField("Имя");
+        nameTField.setRequired(true);
+        nameTField.setSizeFull();
+        nameTField.setRequiredError("Поле пустое");
+        nameTField.addValidator(new StringLengthValidator("Имя должно быть от 3 до 50 символов", 3, 50, false));
+        formLayout.addComponent(nameTField);
 
         patronymicTField = new TextField("Отчество");
         patronymicTField.setRequired(true);

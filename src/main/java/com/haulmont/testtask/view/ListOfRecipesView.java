@@ -18,6 +18,7 @@ import java.util.List;
 public class ListOfRecipesView extends VerticalLayout implements View {
     private RecipeController recipeController;
     private Grid grid;
+    private ComboBox patientSelect;
 
     public ListOfRecipesView() {
         setSizeFull();
@@ -130,7 +131,7 @@ public class ListOfRecipesView extends VerticalLayout implements View {
         }
         BeanItemContainer<Patient> patientContainer = new BeanItemContainer<>(Patient.class, patientList);
 
-        ComboBox patientSelect = new ComboBox("Пациент", patientContainer);
+        patientSelect = new ComboBox("Пациент", patientContainer);
         patientSelect.setNullSelectionAllowed(true);
         patientSelect.setNullSelectionItemId(null);
         filterLayout.addComponent(patientSelect);
@@ -168,17 +169,17 @@ public class ListOfRecipesView extends VerticalLayout implements View {
     }
 
     private void updateList() {
-
         List<Recipe> recipeList = recipeController.getAll();
         if (recipeList == null) {
             Notification.show("Что-то пошло не так. Перезагрузитесь и попробуйте снова.", Notification.Type.HUMANIZED_MESSAGE);
         } else {
-            BeanItemContainer<Recipe> bic = (BeanItemContainer<Recipe>) grid.getContainerDataSource();
-            bic.removeAllItems();
-            bic.addAll(recipeList);
-            grid.setContainerDataSource(bic);
+            BeanItemContainer<Recipe> container = (BeanItemContainer<Recipe>) grid.getContainerDataSource();
+            container.removeAllItems();
+            container.addAll(recipeList);
+            grid.setContainerDataSource(container);
         }
     }
+
 
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {

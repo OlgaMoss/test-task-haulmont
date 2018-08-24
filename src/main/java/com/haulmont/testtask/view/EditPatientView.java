@@ -42,19 +42,19 @@ class EditPatientView extends Window {
         FormLayout formLayout = new FormLayout();
         formLayout.setSpacing(true);
 
-        nameTField = new TextField("Имя");
-        nameTField.setRequired(true);
-        nameTField.setRequiredError("Поле пустое");
-        nameTField.addValidator(new StringLengthValidator("Имя должно быть от 3 до 50 символов", 3, 50, false));
-        nameTField.setSizeFull();
-        formLayout.addComponent(nameTField);
-
         lastNameTField = new TextField("Фамилия");
         lastNameTField.setRequired(true);
         lastNameTField.setRequiredError("Поле пустое");
         lastNameTField.addValidator(new StringLengthValidator("Фамилия должно быть от 3 до 50 символов", 3, 50, false));
         lastNameTField.setSizeFull();
         formLayout.addComponent(lastNameTField);
+
+        nameTField = new TextField("Имя");
+        nameTField.setRequired(true);
+        nameTField.setRequiredError("Поле пустое");
+        nameTField.addValidator(new StringLengthValidator("Имя должно быть от 3 до 50 символов", 3, 50, false));
+        nameTField.setSizeFull();
+        formLayout.addComponent(nameTField);
 
         patronymicTField = new TextField("Отчество");
         patronymicTField.setRequired(true);
@@ -88,7 +88,7 @@ class EditPatientView extends Window {
                     : new Patient(nameTField.getValue(), lastNameTField.getValue(), patronymicTField.getValue(), phoneNumberTField.getValue());
             if (isEditable) {
                 if (patientController.update(patient)) {
-                    Notification.show( "Пациент изменен", Notification.Type.HUMANIZED_MESSAGE);
+                    Notification.show("Пациент изменен", Notification.Type.HUMANIZED_MESSAGE);
                 } else {
                     Notification.show("Что-то пошло не так. Перезагрузитесь и попробуйте снова.", Notification.Type.HUMANIZED_MESSAGE);
                 }

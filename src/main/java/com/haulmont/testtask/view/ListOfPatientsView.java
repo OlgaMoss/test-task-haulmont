@@ -33,7 +33,7 @@ public class ListOfPatientsView extends VerticalLayout implements View {
         grid.setSizeFull();
         grid.setSelectionMode(Grid.SelectionMode.MULTI);
 
-        grid.setColumnOrder("name", "lastName", "patronymic", "phoneNumber");
+        grid.setColumnOrder("lastName", "name", "patronymic", "phoneNumber");
         grid.getColumn("lastName").setHeaderCaption("Фамилия");
         grid.getColumn("name").setHeaderCaption("Имя");
         grid.getColumn("patronymic").setHeaderCaption("Отчество");
