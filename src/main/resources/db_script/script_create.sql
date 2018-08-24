@@ -1,37 +1,37 @@
-CREATE TABLE patients_tbl (
-   id_patient NUMERIC IDENTITY PRIMARY KEY,
+CREATE TABLE Patient (
+   patient_id NUMERIC IDENTITY PRIMARY KEY,
    name VARCHAR(50) NOT NULL,
    lastname VARCHAR(50) NOT NULL,
    patronymic VARCHAR(50) NOT NULL,
    phone_number VARCHAR(15)
 );
 
-CREATE TABLE doctors_tbl (
-   id_doctor NUMERIC IDENTITY PRIMARY KEY,
+CREATE TABLE Doctor (
+   doctor_id NUMERIC IDENTITY PRIMARY KEY,
    name VARCHAR(50) NOT NULL,
    lastname VARCHAR(50) NOT NULL,
    patronymic VARCHAR(50) NOT NULL,
    specialty VARCHAR(60) NOT NULL
 );
 
-CREATE TABLE priority_tbl (
-  id_priority NUMERIC IDENTITY PRIMARY KEY,
-  priority VARCHAR(6) NOT NULL
+CREATE TABLE Priority (
+  priority_id NUMERIC IDENTITY PRIMARY KEY,
+  name VARCHAR(6) NOT NULL
 );
 
-INSERT INTO priority_tbl (priority) VALUES ('Normal');
-INSERT INTO priority_tbl (priority) VALUES ('Cito');
-INSERT INTO priority_tbl (priority) VALUES ('Statim');
+INSERT INTO Priority (name) VALUES ('Normal');
+INSERT INTO Priority (name) VALUES ('Cito');
+INSERT INTO Priority (name) VALUES ('Statim');
 
-CREATE TABLE recipes_tbl (
-   id_recipe NUMERIC IDENTITY PRIMARY KEY,
+CREATE TABLE Recipe (
+   recipe_id NUMERIC IDENTITY PRIMARY KEY,
    description VARCHAR(255) NOT NULL,
-   id_doctor NUMERIC NOT NULL,
-   id_patient NUMERIC NOT NULL,
+   doctor_id NUMERIC NOT NULL,
+   patient_id NUMERIC NOT NULL,
    creation_date DATE NOT NULL,
-   duration DATE,
-   id_priority NUMERIC,
-   FOREIGN KEY (id_doctor) REFERENCES doctors_tbl(id_doctor),
-   FOREIGN KEY (id_patient) REFERENCES patients_tbl(id_patient),
-   FOREIGN KEY (id_priority) REFERENCES priority_tbl(id_priority)
+   duration INTEGER,
+   priority_id NUMERIC,
+   FOREIGN KEY (doctor_id) REFERENCES Doctor(doctor_id),
+   FOREIGN KEY (patient_id) REFERENCES Patient(patient_id),
+   FOREIGN KEY (priority_id) REFERENCES Priority(priority_id)
 );
