@@ -168,7 +168,7 @@ public class ListOfRecipesView extends VerticalLayout implements View {
         listLayout.addComponent(grid);
     }
 
-    private void updateList() {
+    public void updateList() {
         List<Recipe> recipeList = recipeController.getAll();
         if (recipeList == null) {
             Notification.show("Что-то пошло не так. Перезагрузитесь и попробуйте снова.", Notification.Type.HUMANIZED_MESSAGE);
@@ -180,6 +180,18 @@ public class ListOfRecipesView extends VerticalLayout implements View {
         }
     }
 
+    public void updatePatientList() {
+        PatientController patientController = new PatientController();
+        List<Patient> patientList = patientController.getAll();
+        if (patientList == null) {
+            Notification.show("Что-то пошло не так. Перезагрузитесь и попробуйте снова.", Notification.Type.HUMANIZED_MESSAGE);
+        } else {
+            BeanItemContainer<Patient> container = (BeanItemContainer<Patient>) patientSelect.getContainerDataSource();
+            container.removeAllItems();
+            container.addAll(patientList);
+            patientSelect.setContainerDataSource(container);
+        }
+    }
 
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {

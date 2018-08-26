@@ -51,22 +51,26 @@ public class MainUI extends UI {
         headerLayout.setExpandRatio(image, 0.1f);
         headerLayout.setExpandRatio(title, 0.9f);
 
-        TabSheet tabsheet = new TabSheet();
-        layout.addComponent(tabsheet);
+        TabSheet tabSheet = new TabSheet();
+        layout.addComponent(tabSheet);
 
-        VerticalLayout tab1 = new VerticalLayout();
-        tab1.addComponent(new ListOfPatientsView());
-        tabsheet.addTab(tab1, "Список пациентов");
+        ListOfPatientsView listOfPatientsView = new ListOfPatientsView();
+        tabSheet.addTab(listOfPatientsView, "Список пациентов");
 
-        VerticalLayout tab2 = new VerticalLayout();
-        tab2.addComponent(new ListOfDoctorsView());
-        tabsheet.addTab(tab2, "Список врачей");
+        ListOfDoctorsView listOfDoctorsView = new ListOfDoctorsView();
+        tabSheet.addTab(listOfDoctorsView, "Список врачей");
 
-        VerticalLayout tab3 = new VerticalLayout();
-        tab3.addComponent(new ListOfRecipesView());
-        tabsheet.addTab(tab3, "Список рецептов");
+        ListOfRecipesView listOfRecipesView = new ListOfRecipesView();
+        tabSheet.addTab(listOfRecipesView, "Список рецептов");
+
+        tabSheet.addSelectedTabChangeListener(event -> {
+            listOfPatientsView.updateList();
+            listOfDoctorsView.updateList();
+            listOfRecipesView.updateList();
+            listOfRecipesView.updatePatientList();
+        });
 
         layout.setExpandRatio(headerLayout, 0.10f);
-        layout.setExpandRatio(tabsheet, 0.90f);
+        layout.setExpandRatio(tabSheet, 0.90f);
     }
 }

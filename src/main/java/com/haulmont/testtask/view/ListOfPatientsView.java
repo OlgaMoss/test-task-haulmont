@@ -111,15 +111,15 @@ public class ListOfPatientsView extends VerticalLayout implements View {
         listLayout.addComponent(grid);
     }
 
-    private void updateList() {
+    public void updateList() {
         List<Patient> patientList = patientController.getAll();
         if (patientList == null) {
             Notification.show("Что-то пошло не так. Перезагрузитесь и попробуйте снова.", Notification.Type.HUMANIZED_MESSAGE);
         } else {
-            BeanItemContainer<Patient> bic = (BeanItemContainer<Patient>) grid.getContainerDataSource();
-            bic.removeAllItems();
-            bic.addAll(patientList);
-            grid.setContainerDataSource(bic);
+            BeanItemContainer<Patient> container = (BeanItemContainer<Patient>) grid.getContainerDataSource();
+            container.removeAllItems();
+            container.addAll(patientList);
+            grid.setContainerDataSource(container);
         }
     }
 
